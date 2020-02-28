@@ -4,9 +4,13 @@ import MainList from "../MainList"
 import ModalForm from "../ModalForm"
 import axios from 'axios';
 import CompanyForm from './CompanyForm';
+import Pagination from '../Pagination';
+import * as trans from '../../../lang/admin/companies';
 
 
 const Companies = () => {
+    const langActive = useSelector((state)=>state.langsReducer.langActive);
+    const translation = langActive.short ? trans[langActive.short] : trans['en'];
     const [items, setItems] = useState([]);
     const [itemId, setItemId] = useState(null);
     const [openModalStatus, setOpenModalStatus] = useState(false);
@@ -30,19 +34,7 @@ const Companies = () => {
                 }
             });
     };
-    const langActive = useSelector((state)=>state.langsReducer.langActive);
 
-    useEffect(()=>{
-        axios.get("/api/companies?lang="+langActive.id)
-            .then(response => {
-                return response;
-            })
-            .then(result => {
-                if(result.status === 200 && result.data.data){
-                    setItems( result.data.data);
-                }
-            });
-    }, [langActive]);
     const editDataAfterRequest = (item)=> {
         const existItem = items.find((el)=> {
             return el.id === item.id;
@@ -64,7 +56,7 @@ const Companies = () => {
     return (
       <>
           <button type="button" onClick={handleNewCompanyBtn}>
-              add new company
+              {translation.addBtn}
           </button>
           <ModalForm
               title={'Company'}
@@ -73,7 +65,8 @@ const Companies = () => {
           >
             <CompanyForm id={itemId} setOpenModalStatus={setOpenModalStatus} editDataAfterRequest={editDataAfterRequest}/>
           </ModalForm>
-          <MainList type={'company'} items={items} displayFields ={['name', 'email', 'website']} editItem={editItem} removeItem={removeItem} />
+          <MainList title={translation.listTitle} items={items} displayFields ={['name', 'email', 'website']} editItem={editItem} removeItem={removeItem} />
+          <Pagination path={"/api/companies"} setItems={setItems}></Pagination>
       < />
     )
 }

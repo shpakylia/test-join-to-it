@@ -8,9 +8,7 @@ function Login(){
     const history = useHistory();
     const user = useSelector((state)=> state.userReducer);
     if(user.isLoggedIn){
-    console.log(user.isLoggedIn);
-
-        history.push('/');
+        history.push(history.location.state.prevLocation);
     }
 
 

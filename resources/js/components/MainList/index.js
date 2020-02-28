@@ -1,14 +1,10 @@
 import React from "react"
-import ListElement from "../ListElement"
-
-import Grid from '@material-ui/core/Grid';
-import ListItem from '@material-ui/core/ListItem';
+import ListElement from "./ListElement"
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 
 // import Divider from '@material-ui/core/Divider';
 
-const MainList = ({type, items, displayFields , editItem, removeItem}) => {
+const MainList = ({title, items, displayFields , editItem, removeItem}) => {
     const handleEditItem = (id) => {
         editItem(id)
     }
@@ -17,10 +13,10 @@ const MainList = ({type, items, displayFields , editItem, removeItem}) => {
     }
     return(
       <Box >
-        <h3>{type} List</h3>
+        <h3>{title}</h3>
         {items.map(item => {
         return(
-            <ListElement type={type} item={item} displayFields={displayFields} handleEditItem={handleEditItem} handleRemoveItem={handleRemoveItem}/>
+            <ListElement key={item.id} item={item} displayFields={displayFields} handleEditItem={handleEditItem} handleRemoveItem={handleRemoveItem}/>
         )
       })}
     </Box>

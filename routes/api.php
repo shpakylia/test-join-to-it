@@ -31,6 +31,8 @@ use Illuminate\Http\Request;
         });
 
         Route::get('/langs','Api\LangsController@index');
+        Route::get('companies/list','Api\CompaniesController@indexList');
         Route::resource('companies','Api\CompaniesController');
+        Route::resource('employees','Api\EmployeesController');
 
     });

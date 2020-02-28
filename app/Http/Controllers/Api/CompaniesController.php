@@ -30,6 +30,17 @@ class CompaniesController extends Controller
         $response = 'Companies does not exist';
         return response($response, 422);
     }
+    public function indexList(Request $request)
+    {
+        $lang = $request->lang ?? $this->defaultLang->id;
+
+        $companies = Company::where('lang_id', $lang)->get();
+        if($companies){
+            return response($companies, 200);
+        }
+        $response = 'Companies does not exist';
+        return response($response, 422);
+    }
 
     /**
      * Store a newly created resource in storage.

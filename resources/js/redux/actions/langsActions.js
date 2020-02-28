@@ -8,7 +8,6 @@ const fetchLangsAction = () => (dispatch) => {
         .then(result => {
             if(result.status === 200){
                 let langs = result.data;
-                console.log(result);
                 dispatch(fetchLangsSuccess(langs));
             }
             else{
@@ -18,7 +17,6 @@ const fetchLangsAction = () => (dispatch) => {
 };
 
 const fetchLangsSuccess = (langs) => {
-    console.log('success');
     return {
         type: 'FETCH_LANGS_SUCCESS',
         payload: {

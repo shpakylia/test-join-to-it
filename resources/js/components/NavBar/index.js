@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from "react-router-dom";
 import { userLogout } from '../../redux/actions/userActions';
 import Langs from './Langs';
+import * as trans from '../../../lang/admin/navbar';
 
 
 const useStyles = makeStyles(theme => ({
@@ -31,22 +32,24 @@ const NavBar = () => {
     const logOut = () => {
         dispatch(userLogout());
     }
+    const langActive = useSelector((state)=>state.langsReducer.langActive);
+    const translation = langActive.short ? trans[langActive.short] : trans['en'];
     return (
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
                     <Link to='/companies'>
                         <Typography variant="h6" className={classes.title}>
-                            Companies
+                            {translation.companies}
                         </Typography>
                     </Link>
-                    <Link to='/workers'>
+                    <Link to='/employees'>
                         <Typography variant="h6" className={classes.title}>
-                            Workers
+                            {translation.employees}
                         </Typography>
                     </Link>
                     {isLoggedIn ?
-                        <Typography variant="h6" className={classes.title} onClick={logOut}>log out</Typography> : ""}
+                        <Typography variant="h6" className={classes.title} onClick={logOut}>{translation.logOut}</Typography> : ""}
                     {!isLoggedIn ?
                         <Link to="/login" color="inherit">Login</Link> : ""}
 

@@ -22,7 +22,7 @@ class CreateEmployeesTable extends Migration
             $table->string('last_name', 200);
             $table->string('email', 255);
             $table->string('phone', 50);
-            $table->foreign('company_id')->references('item_id')->on('companies')->onDelete('cascade');
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->timestamps();
         });
     }
