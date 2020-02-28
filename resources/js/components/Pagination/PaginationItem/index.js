@@ -10,7 +10,10 @@ const PaginationItem = ({handlePage, page, active}) => {
                     fontWeight: 'bold',
                     backgroundColor: 'red',
                     padding: '10px',
-                    color: 'white'
+                    color: 'white',
+                    '&:hover': {
+                        cursor: 'poiner'
+                    }
                 }}>
                         {page}
                 </span>)

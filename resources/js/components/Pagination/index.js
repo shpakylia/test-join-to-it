@@ -34,10 +34,45 @@ const Pagination = ({ path='', setItems}) => {
 
     const getPaginationItems = ()=>{
         let paginationItems = [];
-        for (let i = 1; i <= total ;i++){
 
-            paginationItems.push(<PaginationItem  handlePage={handlePage} page={i} active={current===i} />)
+        if(current === 1){
+            paginationItems.push(<PaginationItem  handlePage={handlePage} page={1} active={true} />)
+        }else{
+            paginationItems.push(<PaginationItem  handlePage={handlePage} page={1} active={false} />)
         }
+
+        const start = current - 2 > 1 ? current - 2 : 2;
+        const end = current + 2 < total-1 ? current + 2 :  total-1 ;
+
+        console.log('start',start);
+        console.log('end', end);
+        if(start > 2){
+            paginationItems.push(<span>...</span>);
+        }
+        for (let i=start; i <= end; i++){
+            if(i === current){
+                paginationItems.push(<PaginationItem  handlePage={handlePage} page={i} active={true} />)
+            }else{
+                paginationItems.push(<PaginationItem  handlePage={handlePage} page={i} active={false} />)
+            }
+        }
+        if(end < total -1){
+            paginationItems.push(<span>...</span>);
+        }
+
+        if(current === total){
+            paginationItems.push(<PaginationItem  handlePage={handlePage} page={total} active={true} />)
+        }else{
+            paginationItems.push(<PaginationItem  handlePage={handlePage} page={total} active={false} />)
+        }
+
+
+
+
+        // for (let i = 1; i <= total ;i++){
+        //
+        //     paginationItems.push(<PaginationItem  handlePage={handlePage} page={i} active={current===i} />)
+        // }
         return paginationItems;
     };
     const getPaginationBtns = ()=>{
@@ -59,7 +94,7 @@ const Pagination = ({ path='', setItems}) => {
 
     return(
         <div>
-            {getPaginationBtns()}
+            {getPaginationItems()}
         </div>
     )
 }
